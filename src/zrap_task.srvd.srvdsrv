@@ -1,0 +1,6 @@
+@EndUserText.label: 'Task'
+define service ZRAP_TASK {
+  expose ZRAP_C_TASK as Task;
+  expose ZRAP_C_TASK_REL as TaskRelation;
+  expose ZRAP_I_TASK_REL_TREE as TaskRelationTree;
+}

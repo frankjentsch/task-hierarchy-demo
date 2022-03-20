@@ -1,0 +1,54 @@
+@Metadata.layer: #CORE
+
+@UI: { headerInfo: { typeName: 'Task',
+                     typeNamePlural: 'Tasks',
+                     title: { type: #STANDARD, label: 'Task', value: 'TaskID' } },
+       presentationVariant: [{ sortOrder: [{ by: 'TaskID', direction: #ASC }], visualizations: [{type: #AS_LINEITEM}]  }] }
+
+annotate view ZRAP_C_TASK with
+{
+  @UI.facet: [ { id: 'Task',
+                 purpose:       #STANDARD,
+                 type:          #IDENTIFICATION_REFERENCE,
+                 label:         'Task',
+                 position:      10 },
+               { id:            'TaskRelation',
+                 purpose:       #STANDARD,
+                 type:          #LINEITEM_REFERENCE,
+                 label:         'Relation',
+                 position:      20,
+                 targetElement: '_Relation' },
+               { id:            'TaskRelationTree',
+                 purpose:       #STANDARD,
+                 type:          #LINEITEM_REFERENCE,
+                 label:         'Tree List',
+                 position:      30,
+                 targetElement: '_RelationTree' } ]
+
+  @UI.hidden: true
+  TaskUUID;
+
+  @UI: { lineItem:       [ { position: 10, importance: #HIGH } ] ,
+         identification: [ { position: 10 } ],
+         selectionField: [ { position: 10 } ] }
+  TaskID;
+
+  @UI: { lineItem:       [ { position: 20, importance: #HIGH } ] ,
+         identification: [ { position: 20 } ],
+         selectionField: [ { position: 20 } ] }
+  TaskName;
+
+  @UI: { lineItem:       [ { position: 30, importance: #MEDIUM } ] ,
+         identification: [ { position: 30 } ],
+         selectionField: [ { position: 30 } ] }
+  @Consumption.filter.defaultValue: 'X'
+  IsMain;
+
+  @UI: { lineItem:       [ { position: 40, importance: #MEDIUM } ] ,
+         identification: [ { position: 40 } ],
+         selectionField: [ { position: 40 } ] }
+  MaterialUUID;
+
+  @UI.hidden: true
+  LocalLastChangedAt;
+}

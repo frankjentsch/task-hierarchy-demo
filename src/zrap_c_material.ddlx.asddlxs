@@ -1,0 +1,52 @@
+@Metadata.layer: #CORE
+
+@UI: {
+  headerInfo: {
+    typeName: 'Material',
+    typeNamePlural: 'Materials',
+                     title: { type: #STANDARD, label: 'Material', value: 'MaterialID' } },
+  presentationVariant: [{ sortOrder: [{ by: 'MaterialID', direction: #ASC }], visualizations: [{type: #AS_LINEITEM}]  }] }
+
+annotate view ZRAP_C_MATERIAL with
+{
+  @UI.facet: [ {
+    id: 'idIdentification',
+    type: #IDENTIFICATION_REFERENCE,
+    label: 'Material',
+    position: 10
+  } ]
+  
+  @UI.hidden: true
+  MaterialUUID;
+
+  @UI: { lineItem:       [ { position: 10, importance: #HIGH } ] ,
+         identification: [ { position: 10 } ],
+         selectionField: [ { position: 10 } ] }
+  MaterialID;
+
+  @UI: { lineItem:       [ { position: 20, importance: #HIGH } ] ,
+         identification: [ { position: 20 } ],
+         selectionField: [ { position: 20 } ] }
+  MaterialName;
+
+  @UI: { lineItem:       [ { position: 30, importance: #MEDIUM } ] ,
+         identification: [ { position: 30 } ] }
+  MaterialText1;
+
+  @UI: { lineItem:       [ { position: 40, importance: #MEDIUM } ] ,
+         identification: [ { position: 40 } ] }
+  MaterialText2;
+
+  @UI: { lineItem:       [ { position: 50, importance: #MEDIUM } ] ,
+         identification: [ { position: 50 } ] }
+  @UI.multiLineText: true       
+  MaterialText3;
+
+  @UI: { lineItem:       [ { position: 60, importance: #MEDIUM } ] ,
+         identification: [ { position: 60 } ] }
+  @UI.multiLineText: true       
+  MaterialText4;
+
+  @UI.hidden: true
+  LocalLastChangedAt;
+}

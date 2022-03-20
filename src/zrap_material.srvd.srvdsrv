@@ -1,0 +1,4 @@
+@EndUserText.label: 'Material'
+define service ZRAP_MATERIAL {
+  expose ZRAP_C_MATERIAL as Material;
+}

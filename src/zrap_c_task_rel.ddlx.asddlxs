@@ -1,0 +1,28 @@
+@Metadata.layer: #CORE
+
+@UI: { headerInfo: { typeName: 'Parent Task',
+                     typeNamePlural: 'Parent Tasks' } }
+//        title: { type: #STANDARD, label: 'Parent Task', value: 'TaskID' } }
+//       presentationVariant: [{ sortOrder: [{ by: 'TaskID', direction: #ASC }], visualizations: [{type: #AS_LINEITEM}]  }] }
+
+annotate view ZRAP_C_TASK_REL with
+{
+  @UI.facet: [ { id:            'TaskRelation',
+                 purpose:       #STANDARD,
+                 type:          #IDENTIFICATION_REFERENCE,
+                 label:         'Parent Task',
+                 position:      10 } ]
+
+  @UI.hidden: true
+  TaskRelUUID;
+
+  @UI.hidden: true
+  ParentUUID;
+
+  @UI: { lineItem:       [ { position: 10, importance: #HIGH } ] ,
+         identification: [ { position: 10 } ] }
+  ParentTaskUUID;
+
+  @UI.hidden: true
+  LocalLastChangedAt;
+}

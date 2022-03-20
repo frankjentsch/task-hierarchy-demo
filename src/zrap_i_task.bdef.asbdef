@@ -1,0 +1,70 @@
+managed;
+strict;
+with draft;
+
+define behavior for ZRAP_I_TASK alias Task
+implementation in class ZBP_RAP_TASK unique
+persistent table zrap_task
+draft table zrap_task_d
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master ( global )
+
+{
+  field ( readonly, numbering : managed ) TaskUUID;
+  field ( mandatory ) TaskID, TaskName;
+  field ( readonly ) LocalCreatedBy, LocalCreatedAt, LocalLastChangedBy, LocalLastChangedAt, LastChangedAt;
+
+  association _Relation { create ( features : instance, authorization : update ); with draft; }
+
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZRAP_TASK
+  {
+    TaskUUID = TASK_UUID;
+    TaskID = TASK_ID;
+    TaskName = TASK_NAME;
+    IsMain = IS_MAIN;
+    MaterialUUID = MATERIAL_UUID;
+    LocalCreatedBy = LOCAL_CREATED_BY;
+    LocalCreatedAt = LOCAL_CREATED_AT;
+    LocalLastChangedBy = LOCAL_LAST_CHANGED_BY;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+    LastChangedAt = LAST_CHANGED_AT;
+  }
+}
+
+define behavior for ZRAP_I_TASK_REL alias TaskRelation
+implementation in class ZBP_RAP_TASK_REL unique
+persistent table zrap_task_rel
+draft table zrap_task_rel_d
+etag master LocalLastChangedAt
+lock dependent by _Task
+authorization dependent by _Task
+
+{
+  field ( readonly, numbering : managed ) TaskRelUUID;
+  field ( mandatory ) ParentTaskUUID;
+  field ( readonly ) ParentUUID, LocalLastChangedAt;
+
+  association _Task { with draft; }
+
+  update;
+  delete;
+
+  mapping for ZRAP_TASK_REL
+  {
+    TaskRelUUID = TASK_REL_UUID;
+    ParentUUID = PARENT_UUID;
+    ParentTaskUUID = PARENT_TASK_UUID;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+}

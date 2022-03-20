@@ -1,0 +1,43 @@
+managed;
+strict;
+with draft;
+
+define behavior for ZRAP_I_MATERIAL alias Material
+implementation in class ZBP_RAP_MATERIAL unique
+persistent table zrap_material
+draft table zrap_material_d
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master ( global )
+
+{
+  field ( readonly, numbering : managed ) MaterialUUID;
+  field ( mandatory ) MaterialID, MaterialName;
+  field ( readonly ) LocalCreatedBy, LocalCreatedAt, LocalLastChangedBy, LocalLastChangedAt, LastChangedAt;
+
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZRAP_MATERIAL
+  {
+    MaterialUUID = MATERIAL_UUID;
+    MaterialID = MATERIAL_ID;
+    MaterialName = MATERIAL_NAME;
+    MaterialText1 = MATERIAL_TEXT1;
+    MaterialText2 = MATERIAL_TEXT2;
+    MaterialText3 = MATERIAL_TEXT3;
+    MaterialText4 = MATERIAL_TEXT4;
+    LocalCreatedBy = LOCAL_CREATED_BY;
+    LocalCreatedAt = LOCAL_CREATED_AT;
+    LocalLastChangedBy = LOCAL_LAST_CHANGED_BY;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+    LastChangedAt = LAST_CHANGED_AT;
+  }
+}
